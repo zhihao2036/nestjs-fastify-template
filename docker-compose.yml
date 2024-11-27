@@ -1,0 +1,13 @@
+version: '1.0'
+services:
+  nestjs-fastify-template:
+    image: nfst/nestjs-fastify-template
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nestjs-fastify-template-server
+    volumes:
+      - ./.env.prod:/usr/src/app/.env.prod
+    ports:
+      - 8080:8080
+    restart: unless-stopped
