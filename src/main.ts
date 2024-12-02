@@ -8,13 +8,23 @@ import { AppModule } from './app.module';
 import helmet from '@fastify/helmet';
 import fastifyCsrf from '@fastify/csrf-protection';
 import { SwaggerConfig } from './common/plugins/swaggerConfig';
+import { Logger } from 'nestjs-pino';
+import { IdUtil } from './common/utils/IdUtil';
 
 declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter(),
+    new FastifyAdapter({
+      // Define a custom request id function
+      genReqId: (req) => {
+        const existingID = req.id ?? req.headers['x-request-id'];
+        if (existingID) return existingID;
+        const id = IdUtil.getSimpleUUID();
+        return id;
+      },
+    }),
     { bufferLogs: true },
   );
   app.useGlobalPipes(new ValidationPipe());
@@ -35,6 +45,8 @@ async function bootstrap() {
   });
 
   app.register(fastifyCsrf);
+
+  app.useLogger(app.get(Logger));
 
   await app.listen({
     port: +process.env.NODE_PORT,

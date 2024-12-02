@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: nestjs-fastify-template-server
+    environment:
+      SNOWFLAKE_MACHINE_ID: '1'
     volumes:
       - ./.env.prod:/usr/src/app/.env.prod
     ports:
