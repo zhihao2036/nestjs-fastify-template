@@ -7,9 +7,9 @@ import {
 import { AppModule } from './app.module';
 import helmet from '@fastify/helmet';
 import fastifyCsrf from '@fastify/csrf-protection';
-import { SwaggerConfig } from './common/plugins/swaggerConfig';
+import { SwaggerConfig } from './common/plugins/swagger-config';
 import { Logger } from 'nestjs-pino';
-import { IdUtil } from './common/utils/IdUtil';
+import { IdUtil } from './common/utils/id-util';
 
 declare const module: any;
 

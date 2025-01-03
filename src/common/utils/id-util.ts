@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 const { Snowflake } = require('nodejs-snowflake');
 
 /**
- * ID class
+ * ID Generate
  */
 export class IdUtil {
   private static SnowflakeIdConfig = {
@@ -31,6 +31,7 @@ export class IdUtil {
 
   /**
    * get one version 4 UUID
+   * simple uuid without '-'
    *
    * @returns - string
    */
