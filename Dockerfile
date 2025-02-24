@@ -1,7 +1,7 @@
 ###################
 # BUILD FOR PRODUCTION
 ###################
-FROM node:18-slim As build
+FROM node:22-slim As build
 
 WORKDIR /usr/src/app
 
@@ -19,7 +19,7 @@ RUN pnpm build
 ###################
 # PRODUCTION
 ###################
-FROM node:18-slim As production
+FROM build As production
 
 WORKDIR /usr/src/app
 
