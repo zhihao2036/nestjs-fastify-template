@@ -10,4 +10,46 @@ services:
       - ./.env.prod.test:/usr/src/app/.env.prod
     ports:
       - 8081:8080
+    networks:
+      - test-nestjs-fastify_default
     restart: unless-stopped
+  mysql:
+    container_name: test-mysql8
+    image: 'mysql:8.0.33'
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: r1234567890
+      MYSQL_DATABASE: nfst
+      MYSQL_USER: root
+      MYSQL_PASSWORD: m123456789
+    volumes:
+      - mysql-data:/var/lib/mysql:rw
+    ports:
+      - 3386:3306
+    networks:
+      - test-nestjs-fastify_default
+    restart: unless-stopped
+  redis:
+    container_name: test-redis
+    image: 'redis:alpine'
+    command: redis-server --save "" --appendonly "yes"
+    networks:
+      - test-nestjs-fastify_default
+    restart: unless-stopped
+    ports:
+      - 6380:6379
+    tmpfs:
+      - /var/lib/redis
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+
+networks:
+  test-nestjs-fastify_default:
+    external: true
+
+volumes:
+  mysql-data:

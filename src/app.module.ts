@@ -11,6 +11,7 @@ import { HelloModule } from './hello/hello.module';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import * as dayjs from 'dayjs';
 
 @Module({
@@ -97,6 +98,7 @@ import * as dayjs from 'dayjs';
     TaskModule,
     HelloModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

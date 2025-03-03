@@ -1,15 +1,61 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, CreateDateColumn, DeleteDateColumn, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity("user")
+@Entity('user')
 export class User {
-  @ApiProperty()
+  @ApiProperty({
+    description: 'id',
+  })
   @PrimaryColumn()
-  id: number;
+  id: string;
 
   @ApiProperty()
   @Column()
-  name: string;
+  avatar: string;
+
+  @ApiProperty({
+    enum: {
+      1: 'male',
+      2: 'female',
+    },
+  })
+  @Column()
+  gender: number;
+
+  @ApiProperty()
+  @Column()
+  username: string;
+
+  @ApiProperty()
+  @Column()
+  password: string;
+
+  @ApiProperty()
+  @Column()
+  email: string;
+
+  @ApiProperty()
+  @Column()
+  phone: string;
+
+  @ApiProperty({
+    description: 'mobile phone area code',
+  })
+  @Column()
+  phone_prefix: string;
+
+  @ApiProperty({
+    description: 'disabled status',
+  })
+  @Column()
+  is_disabled: boolean;
 
   @ApiProperty()
   @DeleteDateColumn({ select: false })
