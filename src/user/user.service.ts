@@ -21,6 +21,7 @@ export class UserService {
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }
+
   update(id: string, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
@@ -29,12 +30,41 @@ export class UserService {
     return this.usersRepository.find();
   }
 
-  findOneById(id: string): Promise<User | null> {
-    return this.usersRepository.findOneBy({ id });
+  /**
+   * select user by id
+   *
+   * @param id - string
+   * @param needPassword - boolean
+   * @returns - User | null
+   */
+  findOneById(id: string, needPassword = false): Promise<User | null> {
+    const qb = this.usersRepository
+      .createQueryBuilder('u')
+      .select('u.*')
+      .where('u.id = :id', { id })
+      .limit(1);
+    needPassword && qb.addSelect('u.password');
+    return qb.getOne();
   }
 
-  findOneByUsername(username: string): Promise<User | null> {
-    return this.usersRepository.findOneBy({ username });
+  /**
+   * select user by username
+   *
+   * @param username - string
+   * @param needPassword - boolean
+   * @returns - User | null
+   */
+  findOneByUsername(
+    username: string,
+    needPassword = false,
+  ): Promise<User | null> {
+    const qb = this.usersRepository
+      .createQueryBuilder('u')
+      .select('u.*')
+      .where('u.username = :username', { username })
+      .limit(1);
+    needPassword && qb.addSelect('u.password');
+    return qb.getOne();
   }
 
   async remove(id: string): Promise<void> {

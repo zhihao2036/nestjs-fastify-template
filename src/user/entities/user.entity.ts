@@ -7,6 +7,7 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { GenderEnum } from '../types/type';
 
 @Entity('user')
 export class User {
@@ -21,20 +22,24 @@ export class User {
   avatar: string;
 
   @ApiProperty({
-    enum: {
-      1: 'male',
-      2: 'female',
-    },
+    enum: GenderEnum,
   })
-  @Column()
+  @Column({
+    default: GenderEnum.OTHER,
+    enum: GenderEnum,
+  })
   gender: number;
 
   @ApiProperty()
   @Column()
   username: string;
 
-  @ApiProperty()
-  @Column()
+  @ApiProperty({
+    description: 'never return to client',
+  })
+  @Column({
+    select: false,
+  })
   password: string;
 
   @ApiProperty()
@@ -53,8 +58,11 @@ export class User {
 
   @ApiProperty({
     description: 'disabled status',
+    default: false,
   })
-  @Column()
+  @Column({
+    default: false,
+  })
   is_disabled: boolean;
 
   @ApiProperty()

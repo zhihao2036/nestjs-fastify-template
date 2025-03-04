@@ -29,7 +29,7 @@ export class AuthService {
     username,
     password,
   ): Promise<Omit<User, 'password'>> {
-    const user = await this.userService.findOneByUsername(username);
+    const user = await this.userService.findOneByUsername(username, true);
     if (!user) {
       this.logger.warn(`unregistered user: ${username}`);
       throw new UnauthorizedException('unregistered user');

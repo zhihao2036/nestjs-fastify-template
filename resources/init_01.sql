@@ -7,7 +7,7 @@ USE IF EXISTS nfst;
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `user` (
   `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'snowflake ID',
-  `gender` tinyint DEFAULT '1' COMMENT 'gender 1-male 2-female',
+  `gender` tinyint DEFAULT '3' COMMENT 'gender 1-male 2-female 3-other',
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'username',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'password',
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'avatar',

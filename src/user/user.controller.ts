@@ -10,6 +10,8 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ApiResponse } from '@nestjs/swagger';
+import { User } from './entities/user.entity';
 
 @Controller('user')
 export class UserController {
@@ -20,11 +22,20 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @Get()
+  @ApiResponse({
+    description: 'query all users list',
+    type: User,
+    isArray: true,
+  })
+  @Get('list')
   findAll() {
     return this.userService.findAll();
   }
 
+  @ApiResponse({
+    description: "get one user by user'id",
+    type: User,
+  })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOneById(id);
